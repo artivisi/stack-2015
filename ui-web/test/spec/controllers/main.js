@@ -6,17 +6,20 @@ describe('Controller: MainCtrl', function () {
   beforeEach(module('uiWebApp'));
 
   var MainCtrl,
-    scope;
+    scope, 
+    $rootScope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, _$rootScope_) {
+    $rootScope = _$rootScope_;
     scope = $rootScope.$new();
+
     MainCtrl = $controller('MainCtrl', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should not set rootScope.sudahLogin', function () {
+    expect($rootScope.currentUser).not.toBeDefined();
   });
 });

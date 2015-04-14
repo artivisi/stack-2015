@@ -12,12 +12,12 @@ angular.module('uiWebApp')
     $scope.response = {};
 
     $scope.halo = function(){
-        $http.get("/api/halo?nama="+$scope.nama)
+        $http.get('/api/halo?nama='+$scope.nama)
         .success(function(data){
             $scope.response = data;
         })
         .error(function(data, status){
-            alert("Error status : "+status+", data : "+data);
+            console.log('Error status : '+status+', data : '+data);
         });
-    }
+    };
   });

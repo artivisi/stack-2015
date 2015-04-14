@@ -13,21 +13,21 @@ angular.module('uiWebApp')
       $rootScope.currentUser = Profile.get();
       $rootScope.sudahLogin = true;
       $rootScope.token = AccessToken.get();
-      console.log("Sudah Login : "+$scope.sudahLogin);
-    }
+      console.log('Sudah Login : '+$scope.sudahLogin);
+    };
 
-    $scope.$on('oauth:authorized', function(event) {
+    $scope.$on('oauth:authorized', function() {
       setelahLogin();
     });
 
-    $scope.$on('oauth:login', function(event) {
+    $scope.$on('oauth:login', function() {
       setelahLogin();
     });
 
-    $scope.$on('oauth:logout', function(event) {
+    $scope.$on('oauth:logout', function() {
       $rootScope.currentUser = {};
       $rootScope.sudahLogin = false;
       $rootScope.token = {};
-      console.log("Sudah Login : "+$scope.sudahLogin);
+      console.log('Sudah Login : '+$scope.sudahLogin);
     });
   });

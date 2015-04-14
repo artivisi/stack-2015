@@ -46,6 +46,7 @@ angular
       $httpProvider.interceptors.push(function($q, $rootScope) {
         return {
          'request': function(config) {
+             /*jshint camelcase: false */
              if($rootScope.token) {
               config.headers = config.headers || {};
               config.headers.Authorization = 'Bearer '+$rootScope.token.access_token;
