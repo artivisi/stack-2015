@@ -32,7 +32,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                     .autoApprove(true)
                 .and().withClient("uiangular")
                     .authorizedGrantTypes("implicit")
-                    .redirectUris("http://localhost:9000")
+                    .redirectUris("http://localhost:10002")
                     .scopes("uiangular")
                     .autoApprove(true)
                 ;
