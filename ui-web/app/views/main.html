@@ -1,21 +1,30 @@
-<div class="jumbotron">
-  <h1>Template Aplikasi 2015</h1>
-  <p class="lead">
-    <img src="images/artivisi.png" alt="Logo ArtiVisi" width="400"><br>
-  </p>
+<div ng-show="authenticated">
+  <div class="jumbotron">
+    <h1>Template Aplikasi 2015</h1>
+    <p class="lead">
+      <img src="images/artivisi.png" alt="Logo ArtiVisi" width="400"><br>
+    </p>
+  </div>
+
+  <div>
+    <p>    
+      Current User : {{currentUser.principal.username}}
+    </p>
+    <p>
+      Role :
+      <ul>
+        <li ng-repeat="a in currentUser.authorities">{{a.authority}}</li>
+      </ul>
+    </p>
+  </div>
 </div>
-
-<div class="row marketing">
-  <h4>AngularJS</h4>
-  <p>
-    Front end dibuat dengan AngularJS dan Bootstrap
-  </p>
-
-  <h4>Spring Boot</h4>
-  <p>
-    Backend dibuat dengan Spring Boot
-  </p>
-
-  <h4>OAuth 2.0</h4>
-  <p>Otentikasi dilakukan dengan protokol OAuth 2.0</p>
+<div ng-show="!authenticated">
+  <form class="form-signin">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputEmail" class="sr-only">Username</label>
+    <input type="username" id="inputEmail" class="form-control" placeholder="username" required autofocus ng-model="credentials.username">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="credentials.password">
+    <button class="btn btn-lg btn-primary btn-block" ng-click="login()">Sign in</button>
+  </form>
 </div>
