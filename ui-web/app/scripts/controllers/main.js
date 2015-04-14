@@ -10,10 +10,10 @@
 angular.module('uiWebApp')
   .controller('MainCtrl', function ($scope, $rootScope, AccessToken, Profile) {
     var setelahLogin = function(){
-      $scope.currentUser = Profile.get();
-      $scope.sudahLogin = true;
-      console.log("Sudah Login : "+$scope.sudahLogin);
+      $rootScope.currentUser = Profile.get();
+      $rootScope.sudahLogin = true;
       $rootScope.token = AccessToken.get();
+      console.log("Sudah Login : "+$scope.sudahLogin);
     }
 
     $scope.$on('oauth:authorized', function(event) {
@@ -25,8 +25,9 @@ angular.module('uiWebApp')
     });
 
     $scope.$on('oauth:logout', function(event) {
-      $scope.currentUser = {};
-      $scope.sudahLogin = false;
+      $rootScope.currentUser = {};
+      $rootScope.sudahLogin = false;
+      $rootScope.token = {};
       console.log("Sudah Login : "+$scope.sudahLogin);
     });
   });
