@@ -1,6 +1,7 @@
 package com.muhardin.endy.belajar.stack2015.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,14 +15,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Configuration
     public static class WebappSecurityConfig extends WebSecurityConfigurerAdapter {
+
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
                     .antMatchers("/css/**").permitAll();
         }
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.inMemoryAuthentication()
+                    .withUser("endy")
+                    .password("123")
+                    .roles("ADMIN")
+                    .and().withUser("maya")
+                    .password("456")
+                    .roles("STAFF");
+        }
+
+        @Bean
+        @Override
+        public AuthenticationManager authenticationManagerBean() throws Exception {
+            return super.authenticationManagerBean();
+        }
     }
-    
+
     @Configuration
     @Order(-10)
     public static class OAuthSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -39,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated();
 
         }
-
+        
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.parentAuthenticationManager(authenticationManager);
