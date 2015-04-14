@@ -25,11 +25,17 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("uiweb")
-                .secret("uiwebsecret123")
-                .authorizedGrantTypes("authorization_code", "refresh_token")
-                .redirectUris("http://example.com/")
-                .scopes("uiweb")
-                .autoApprove(true);
+                    .secret("uiwebsecret123")
+                    .authorizedGrantTypes("authorization_code", "refresh_token")
+                    .redirectUris("http://example.com/")
+                    .scopes("uiweb")
+                    .autoApprove(true)
+                .and().withClient("uiangular")
+                    .authorizedGrantTypes("implicit")
+                    .redirectUris("http://localhost:9000")
+                    .scopes("uiangular")
+                    .autoApprove(true)
+                ;
     }
 
     @Override

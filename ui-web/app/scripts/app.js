@@ -13,10 +13,11 @@ angular
     'ngCookies',
     'ngResource',
     'ngRoute',
-    'ngSanitize'
+    'ngSanitize',
+    'oauth'
   ])
   .config(function ($routeProvider, $httpProvider) {
-    $routeProvider
+      $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
@@ -29,9 +30,28 @@ angular
         templateUrl: 'views/halo.html',
         controller: 'HaloCtrl'
       })
+      .when('/access_token=:accessToken', {
+        template: '',
+        controller: function ($location, AccessToken) {
+          var hash = $location.path().substr(1);
+          AccessToken.setTokenFromString(hash);
+          $location.path('/');
+          $location.replace();
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });
 
-      $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+      $httpProvider.interceptors.push(function($q, $rootScope) {
+        return {
+         'request': function(config) {
+             if($rootScope.token) {
+              config.headers = config.headers || {};
+              config.headers.Authorization = 'Bearer '+$rootScope.token.access_token;
+             }
+             return config;
+          }
+        };
+      });
   });

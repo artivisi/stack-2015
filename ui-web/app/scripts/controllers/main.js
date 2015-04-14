@@ -8,29 +8,25 @@
  * Controller of the uiWebApp
  */
 angular.module('uiWebApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $http) {
-    $scope.login = function(){
-        authenticate($scope.credentials);
+  .controller('MainCtrl', function ($scope, $rootScope, AccessToken, Profile) {
+    var setelahLogin = function(){
+      $scope.currentUser = Profile.get();
+      $scope.sudahLogin = true;
+      console.log("Sudah Login : "+$scope.sudahLogin);
+      $rootScope.token = AccessToken.get();
     }
 
-    var authenticate = function(credentials) {
-        alert("Username : "+credentials.username+", password : "+credentials.password);
-        
-        var headers = credentials ? {authorization : "Basic "
-            + btoa(credentials.username + ":" + credentials.password)
-        } : {};
+    $scope.$on('oauth:authorized', function(event) {
+      setelahLogin();
+    });
 
-        $http.get('/api/user', {headers : headers})
-        .success(function(data) {
-          if (data) {
-            $rootScope.authenticated = true;
-            $rootScope.currentUser = data;
-          } else {
-            $rootScope.authenticated = false;
-          }
-        }).error(function(data, status) {
-           alert("Username / Password salah");
-          $rootScope.authenticated = false;
-        });
-      };
+    $scope.$on('oauth:login', function(event) {
+      setelahLogin();
+    });
+
+    $scope.$on('oauth:logout', function(event) {
+      $scope.currentUser = {};
+      $scope.sudahLogin = false;
+      console.log("Sudah Login : "+$scope.sudahLogin);
+    });
   });
