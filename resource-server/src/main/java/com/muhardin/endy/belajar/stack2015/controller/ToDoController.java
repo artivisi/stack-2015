@@ -1,6 +1,5 @@
 package com.muhardin.endy.belajar.stack2015.controller;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +15,5 @@ public class ToDoController {
         Map<String, Object> hasil = new HashMap<>();
         hasil.put("salam", "Halo " + nama);
         return hasil;
-    }
-
-    @RequestMapping("/user")
-    public Principal user(Principal user) {
-        return user;
     }
 }
