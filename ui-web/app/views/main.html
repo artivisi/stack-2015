@@ -7,12 +7,12 @@
 
   <div ng-show="sudahLogin">
     <p>    
-      Current User : {{currentUser.principal.username}}
+      Current User : {{profile.name}}
     </p>
     <p>
       Role :
       <ul>
-        <li ng-repeat="a in currentUser.authorities">{{a.authority}}</li>
+        <li ng-repeat="a in profile.authorities">{{a.authority}}</li>
       </ul>
     </p>
   </div>

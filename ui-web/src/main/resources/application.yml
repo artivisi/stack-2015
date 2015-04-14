@@ -1,0 +1,13 @@
+server:
+    port: 9000
+
+zuul:
+  routes:
+    api:
+      path: /api/**
+      url: http://localhost:10002
+      stripPrefix: false
+    uaa:
+      path: /uaa/me
+      url: http://localhost:10001
+      stripPrefix: false
