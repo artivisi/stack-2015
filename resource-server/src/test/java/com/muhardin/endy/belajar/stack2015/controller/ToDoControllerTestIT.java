@@ -1,7 +1,7 @@
 package com.muhardin.endy.belajar.stack2015.controller;
 
 import static com.jayway.restassured.RestAssured.*;
-import com.muhardin.endy.belajar.stack2015.App;
+import com.muhardin.endy.belajar.stack2015.ResourceServer;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = App.class)
+@SpringApplicationConfiguration(classes = ResourceServer.class)
 @WebAppConfiguration
 @IntegrationTest("server.port=0")
 public class ToDoControllerTestIT {

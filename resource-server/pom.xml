@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.muhardin.endy.belajar</groupId>
-    <artifactId>stack-2015</artifactId>
+    <artifactId>stack-2015-resource</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ArtiVisi Stack 2015</name>
+    <name>ArtiVisi Stack 2015 : Resource Server</name>
     <description>Template Project ArtiVisi 2015</description>
 
     <parent>
@@ -19,7 +19,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.muhardin.endy.belajar.stack2015.App</start-class>
+        <start-class>com.muhardin.endy.belajar.stack2015.ResourceServer</start-class>
         <java.version>1.7</java.version>
     </properties>
 
