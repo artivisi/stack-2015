@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.security.oauth2.sso.OAuth2SsoConfigurerAdapter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
@@ -16,12 +17,13 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
-@Configuration
+@Configuration @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends OAuth2SsoConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/waktu").hasAnyAuthority("ROLE_STAFF")  // tidak berfungsi
                 .anyRequest().authenticated()
                 .and().csrf().csrfTokenRepository(csrfTokenRepository())
                 .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
