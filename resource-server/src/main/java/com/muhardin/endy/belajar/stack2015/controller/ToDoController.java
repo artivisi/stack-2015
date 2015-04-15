@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ToDoController {
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/halo", method = RequestMethod.GET)
     public Map<String, Object> halo(@RequestParam(required = false) String nama, Authentication user) {
         Map<String, Object> hasil = new HashMap<>();
@@ -24,6 +24,7 @@ public class ToDoController {
         return hasil;
     }
     
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_STAFF')")
     @RequestMapping(value = "/waktu", method = RequestMethod.GET)
     public Map<String, Object> waktu(Authentication user) {
         Map<String, Object> hasil = new HashMap<>();
