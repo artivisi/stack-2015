@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,9 +49,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Autowired
         private AuthenticationManager authenticationManager;
+        
+        @Bean 
+        public SessionRegistry sessionRegistry(){
+            return new SessionRegistryImpl();
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            http.sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry());
+            
             http
                     .formLogin().loginPage("/login").permitAll()
                     .and().requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
