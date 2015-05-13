@@ -1,5 +1,6 @@
 package com.muhardin.endy.belajar.stack2015.config;
 
+import com.muhardin.endy.belajar.stack2015.handler.Oauth2LogoutHandler;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -90,6 +91,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Autowired
         private AuthenticationManager authenticationManager;
+        @Autowired
+        private Oauth2LogoutHandler logoutHandler;
         
         @Bean 
         public SessionRegistry sessionRegistry(){
@@ -105,10 +108,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             
             http
                     .formLogin().loginPage("/login").permitAll()
-                    .and().requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
                     .and()
-                    .authorizeRequests()
-                    .anyRequest().authenticated();
+                        .logout()
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .logoutSuccessHandler(logoutHandler)
+                    .and()
+                        .requestMatchers()
+                        .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
+                    .and()
+                        .authorizeRequests()
+                        .anyRequest().authenticated();
         }
         
         @Override
