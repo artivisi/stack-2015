@@ -1,63 +1,52 @@
-create table if not exists c_security_permission (
+create table if not exists `c_security_permission` (
+  `id` varchar(255) NOT NULL,
+  `permission_label` varchar(255) NOT NULL,
+  `permission_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_k4suda9cvcsoikdgquscypmt6` (`permission_value`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
+
+create table if not exists `c_security_role` (
+  `id` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table if not exists `c_security_role_permission` (
+  `id_role` varchar(255) NOT NULL,
+  `id_permission` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_role`,`id_permission`),
+  KEY `FK_d89p0a0x87scb5s3830jx7xq0` (`id_permission`),
+  CONSTRAINT `FK_d89p0a0x87scb5s3830jx7xq0` FOREIGN KEY (`id_permission`) REFERENCES `c_security_permission` (`id`),
+  CONSTRAINT `FK_fvynt2q4rxk27e0bxuon50tp4` FOREIGN KEY (`id_role`) REFERENCES `c_security_role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table if not exists `c_security_user` (
+  `id` varchar(255) NOT NULL,
+  `active` bit(1) DEFAULT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `id_role` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_at8if7a9lnl90wxllb9divpdf` (`username`),
+  KEY `FK_my18sie96bgbncypva3fxboxy` (`id_role`),
+  CONSTRAINT `FK_my18sie96bgbncypva3fxboxy` FOREIGN KEY (`id_role`) REFERENCES `c_security_role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+create table if not exists op_c_security_user_extension (
     id varchar(255) not null,
-    permission_label varchar(255) not null,
-    permission_value varchar(255) not null,
-    primary key (id)
-) ENGINE=InnoDB;
-
-create table if not exists c_security_role (
-    id varchar(255) not null,
-    description varchar(255),
-    name varchar(255) not null,
-    primary key (id)
-) ENGINE=InnoDB;
-
-create table if not exists c_security_role_permission (
-    id_role varchar(255) not null,
-    id_permission varchar(255) not null,
-    primary key (id_role, id_permission)
-) ENGINE=InnoDB;
-
-create table if not exists c_security_user (
-    id varchar(255) not null,
-    active bit,
-    fullname varchar(255) not null,
-    username varchar(255) not null,
-    id_role varchar(255) not null,
-    primary key (id)
-) ENGINE=InnoDB;
-
-create table if not exists c_security_user_password (
+    id_extension varchar(255) not null,
     id_user varchar(255) not null,
-    user_password varchar(255) not null,
-    primary key (id_user)
+    primary key (id)
 ) ENGINE=InnoDB;
 
-alter table c_security_permission 
-    add constraint UK_k4suda9cvcsoikdgquscypmt6  unique (permission_value);
-
-alter table c_security_user 
-    add constraint UK_at8if7a9lnl90wxllb9divpdf  unique (username);
-
-alter table c_security_role_permission 
-    add constraint FK_d89p0a0x87scb5s3830jx7xq0 
-    foreign key (id_permission) 
-    references c_security_permission (id);
-
-alter table c_security_role_permission 
-    add constraint FK_fvynt2q4rxk27e0bxuon50tp4 
-    foreign key (id_role) 
-    references c_security_role (id);
-
-alter table c_security_user 
-    add constraint FK_my18sie96bgbncypva3fxboxy 
-    foreign key (id_role) 
-    references c_security_role (id);
-
-alter table c_security_user_password 
-    add constraint FK_9a26m4sjx4ddi35n3w0s6b5os 
-    foreign key (id_user) 
-    references c_security_user (id);
+create table if not exists `c_security_user_password` (
+  `id_user` varchar(255) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_user`),
+  CONSTRAINT `FK_9a26m4sjx4ddi35n3w0s6b5os` FOREIGN KEY (`id_user`) REFERENCES `c_security_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `oauth_access_token` (
   `token_id` varchar(256) DEFAULT NULL,
