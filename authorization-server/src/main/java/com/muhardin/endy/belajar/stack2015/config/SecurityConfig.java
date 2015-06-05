@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -46,19 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
             auth.authenticationProvider(daoAuthenticationProvider());
-        }
-    
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http
-                    .authorizeRequests()
-                    .antMatchers("/css/**").permitAll();
-        }
-
-        @Bean
-        @Override
-        public AuthenticationManager authenticationManagerBean() throws Exception {
-            return super.authenticationManagerBean();
         }
         
         @Bean
@@ -91,9 +79,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Autowired
         private AuthenticationManager authenticationManager;
-        @Autowired
-        private Oauth2LogoutHandler logoutHandler;
         
+        @Autowired private Oauth2LogoutHandler logoutHandler;
+    
         @Bean 
         public SessionRegistry sessionRegistry(){
             return new SessionRegistryImpl();
@@ -101,24 +89,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true)
-                .sessionRegistry(sessionRegistry());
+            http
+                    .sessionManagement()
+                    .maximumSessions(1)
+                    .maxSessionsPreventsLogin(true)
+                    .sessionRegistry(sessionRegistry());
             
             http
+                    .authorizeRequests()
+                        .antMatchers("/login").permitAll()
+                        .antMatchers("/logout").permitAll()
+                        .antMatchers("/css/**").permitAll()
+                        .anyRequest().authenticated()
+                .and()
                     .formLogin().loginPage("/login").permitAll()
-                    .and()
-                        .logout()
-                        .logoutUrl("/logout")
-                        .invalidateHttpSession(true)
-                        .logoutSuccessHandler(logoutHandler)
-                    .and()
-                        .requestMatchers()
-                        .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
-                    .and()
-                        .authorizeRequests()
-                        .anyRequest().authenticated();
+                .and()
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .invalidateHttpSession(true)
+                    .logoutSuccessHandler(logoutHandler);
         }
         
         @Override
