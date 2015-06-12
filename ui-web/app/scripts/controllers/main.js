@@ -8,10 +8,11 @@
  * Controller of the uiWebApp
  */
 angular.module('uiWebApp')
-  .controller('MainCtrl', function ($scope, $rootScope, AccessToken) {
+  .controller('MainCtrl', function ($scope, $rootScope, AccessToken, Profile) {
     var setelahLogin = function(){
       $rootScope.sudahLogin = true;
       $rootScope.token = AccessToken.get();
+      $scope.profile = Profile.get();
       console.log('Sudah Login : '+$scope.sudahLogin);
     };
 

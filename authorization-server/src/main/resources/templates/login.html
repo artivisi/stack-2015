@@ -17,10 +17,10 @@
     </head>
     <body>
         <div class="container">
-            <div th:if="${param.error}">
-                Invalid username and password.
+            <div th:if="${param.error} and ${session.SPRING_SECURITY_LAST_EXCEPTION} != null" class="alert alert-danger">
+                <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
             </div>
-            <div th:if="${param.logout}">
+            <div th:if="${param.logout}" class="alert alert-success">
                 You have been logged out.
             </div>
 
