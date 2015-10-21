@@ -6,7 +6,7 @@
     <groupId>com.muhardin.endy.belajar</groupId>
     <artifactId>stack-2015-authorization</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>ArtiVisi Stack 2015 : Authorization Server</name>
     <description>Template Project ArtiVisi 2015</description>
@@ -79,10 +79,10 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-        </dependency>
+        </dependency>-->
     </dependencies>
 	
     <build>
