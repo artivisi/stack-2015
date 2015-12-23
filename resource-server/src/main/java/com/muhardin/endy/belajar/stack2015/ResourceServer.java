@@ -1,12 +1,10 @@
 package com.muhardin.endy.belajar.stack2015;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @EnableOAuth2Resource
 public class ResourceServer {
     public static void main(String[] args) {

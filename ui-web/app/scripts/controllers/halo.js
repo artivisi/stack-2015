@@ -20,4 +20,14 @@ angular.module('uiWebApp')
             console.log('Error status : '+status+', data : '+data);
         });
     };
+    
+    $scope.cekWaktu = function(){
+        $http.get('/api/waktu')
+        .success(function(data){
+            $scope.data = data;
+        })
+        .error(function(data, status){
+            console.log('Error status : '+status+', data : '+data);
+        });
+    };
   });
