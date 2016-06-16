@@ -1,13 +1,35 @@
+debug: true
+
 server:
     port: 10002
 
+#security:
+#  user:
+#    password: none
+#  oauth2:
+#    client:
+#      accessTokenUri: http://localhost:10000/uaa/oauth/token
+#      userAuthorizationUri: http://localhost:10000/uaa/oauth/authorize
+#      clientId: acme
+#      clientSecret: acmesecret
+#    resource:
+#      jwt:
+#        keyValue: |
+#          -----BEGIN PUBLIC KEY-----
+#          MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMgxvg8ptG+JXJ9a//uo1eSA0xGA5tIo2Gh7jUrWpU8yZd0H/pf2Nl102tIpdK1kOzt9ch7AlxtcRCMQrCV74cUCAwEAAQ==
+#          -----END PUBLIC KEY-----
+          
 zuul:
   routes:
     api:
       path: /api/**
-      url: http://localhost:10001
-      stripPrefix: false
-    uaa:
-      path: /uaa/me
-      url: http://localhost:10000
-      stripPrefix: false
+      sensitiveHeaders: Authorization
+      url: http://localhost:10001/api
+    auth-server:
+      path: /auth-server/**
+      sensitiveHeaders: Authorization
+      url: http://localhost:10000/auth-server
+      
+logging:
+  level:
+    org.springframework.security: DEBUG

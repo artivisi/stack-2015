@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -120,10 +121,10 @@ public class SecurityConfig {
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .invalidateHttpSession(true)
-                    .logoutSuccessHandler(logoutHandler);
-//                .and()
-//                    .csrf().csrfTokenRepository(csrfTokenRepository())
-//                    .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
+                    .logoutSuccessHandler(logoutHandler)
+                .and()
+                    .csrf().csrfTokenRepository(csrfTokenRepository())
+                    .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
         }
 
         @Override

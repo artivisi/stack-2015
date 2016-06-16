@@ -78,14 +78,14 @@ module.exports = function (grunt) {
               port: 10001
           },
           {
-              context: '/uaa/me',
+              context: '/auth-server',
               host: 'localhost',
               port: 10000
           }
       ],
       livereload: {
         options: {
-          open: true,
+          open: false,
           middleware: function (connect) {
             return [
               require('grunt-connect-proxy/lib/utils').proxyRequest,
