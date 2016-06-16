@@ -38,3 +38,41 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+h1.center {
+    text-align: center;
+}
+
+hr.mystyle {
+    height: 3px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 1px black;
+}
+
+div.btn-landing {
+    padding: 25px;
+    margin: 25px;
+    text-align: center;
+}
+
+.mybtn {
+    margin-left: 20px;
+    padding: 20px 20px 0px 20px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px 1px #4aa6e2;
+}
+
+.label-btn {
+    margin-top: 10px;
+    font-family: fantasy;
+    font-size: large;
+}
+
+.btn-logout {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
