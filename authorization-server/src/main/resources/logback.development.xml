@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+	
+    <logger name="com.muhardin.endy">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <root>
+        <appender-ref ref="STDOUT" />
+    </root>
+    
+</included>

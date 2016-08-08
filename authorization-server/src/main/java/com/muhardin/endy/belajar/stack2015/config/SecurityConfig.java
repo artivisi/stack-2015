@@ -116,7 +116,7 @@ public class SecurityConfig {
                     .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/landing", false)
+                    .defaultSuccessUrl("/", false)
                     .and()
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
