@@ -51,9 +51,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        KeyPair keyPair = new KeyStoreKeyFactory(
-                new ClassPathResource("authstore.jks"), "test1234".toCharArray())
-                .getKeyPair("authserver");
+        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("brikerbox.jks"), "auth4br1ker".toCharArray()).getKeyPair("brikerbox-apps");
         converter.setKeyPair(keyPair);
         return converter;
     }
