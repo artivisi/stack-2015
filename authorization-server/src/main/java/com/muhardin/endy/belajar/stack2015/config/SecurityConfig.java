@@ -113,6 +113,7 @@ public class SecurityConfig {
                     .antMatchers("/login").permitAll()
                     .antMatchers("/logout").permitAll()
                     .antMatchers("/css/**").permitAll()
+                    .antMatchers("/img/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
