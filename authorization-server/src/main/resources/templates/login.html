@@ -26,6 +26,7 @@
 
             <form class="form-signin" method="post" th:action="@{/login}">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <img th:src="@{/img/logo.png}"/>
                 <h2 class="form-signin-heading">Please sign in</h2>
                 <label for="inputUsername" class="sr-only">Username</label>
                 <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username"/>

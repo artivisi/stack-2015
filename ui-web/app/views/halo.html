@@ -5,6 +5,8 @@
 
 Nama : <input type="text" ng-model="nama">
 <button class="btn btn-primary" ng-click="halo()">Ok</button>
+<button class="btn btn-primary" ng-click="cekWaktu()">Waktu</button>
 
 <h4>Response</h4>
-Hasil : {{response.salam}}
+Hasil : {{response.salam}}<br>
+Waktu : {{data.waktu | date : 'dd MMMM yyyy'}}

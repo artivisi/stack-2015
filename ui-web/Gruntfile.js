@@ -78,14 +78,14 @@ module.exports = function (grunt) {
               port: 10001
           },
           {
-              context: '/uaa/me',
+              context: '/auth-server',
               host: 'localhost',
               port: 10000
           }
       ],
       livereload: {
         options: {
-          open: true,
+          open: false,
           middleware: function (connect) {
             return [
               require('grunt-connect-proxy/lib/utils').proxyRequest,
@@ -402,7 +402,7 @@ module.exports = function (grunt) {
     }
   });
 
-
+  grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);

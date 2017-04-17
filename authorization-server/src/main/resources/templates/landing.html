@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Landing Page</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}"/>
+
+        <link rel="stylesheet" th:href="@{/css/app.css}"/>
+    </head>
+    <body>
+        <div class="btn-logout" th:with="logoutUrl=@{/logout}">
+            <button class="btn btn-danger" th:onclick="'redirect(\'' + ${logoutUrl} + '\');'">
+                <i class="glyphicon glyphicon-log-out" ></i>
+            </button>
+        </div>
+        <div class="container">
+            <div class="jumbotron">
+              <h1 class="center">Welcome to Brikerbox Application</h1>
+              <hr class="mystyle"/>
+              <div class="btn-landing">
+                <button class="btn btn-primary mybtn" th:onclick="'redirect(\'' + ${@environment.getProperty('app.admin.url')} + '\');'">
+                    <img th:src="@{/img/admin.png}" width="150" height="130"/>
+                    <p class="label-btn" th:text="${@environment.getProperty('app.admin.name')}">Admin Area</p>
+                </button>
+                <button class="btn btn-primary mybtn" th:onclick="'redirect(\'' + ${@environment.getProperty('app.portal.url')} + '\');'">
+                    <img th:src="@{/img/portal.png}" width="150" height="130" />
+                    <p class="label-btn" th:text="${@environment.getProperty('app.portal.name')}">Portal</p>
+                </button>
+              </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function redirect(url){
+                window.location.href = url;
+            }
+        </script>
+    </body>
+</html>

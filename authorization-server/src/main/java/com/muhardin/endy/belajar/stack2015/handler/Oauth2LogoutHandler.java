@@ -21,17 +21,27 @@ public class Oauth2LogoutHandler implements LogoutSuccessHandler {
     @Autowired private ConsumerTokenServices consumerTokenServices;
     @Autowired private SessionRegistry sessionRegistry;
     
+    @Override
     public void onLogoutSuccess(HttpServletRequest req, HttpServletResponse res, Authentication a) throws IOException, ServletException {
         logger.debug("Removing session id [{}]", req.getSession().getId());
         sessionRegistry.removeSessionInformation(req.getSession().getId());
+        
+        logger.debug("Invalidate session id [{}]", req.getSession().getId());
+        req.getSession().invalidate();
+        
         String token=req.getParameter("token");
         if(token != null){
+            logger.debug("Revoke Token [{}]", token);
             consumerTokenServices.revokeToken(token);
         }
         String redirect = req.getParameter("redirect");
         if(redirect != null){
             logger.debug("Redirect after logout to [{}] ",redirect);
             res.sendRedirect(redirect);
+        } else {
+            logger.debug("Redirect to Login Page [{}]", req.getServletContext().getContextPath());
+            res.sendRedirect(req.getServletContext().getContextPath() + "/login");
         }
     }
+    
 }

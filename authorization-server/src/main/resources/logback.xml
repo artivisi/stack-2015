@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--Filter-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <!-- <prudent>true</prudent> -->
+        <file>${catalina.home:-.}/logs/auth-server.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- ganti file setiap jam -->
+            <fileNamePattern>
+                ${catalina.home:-.}/logs/auth-server.%d{yyyy-MM-dd_HH}.log.gz
+            </fileNamePattern>
+            <!-- simpan file selama sebulan (24 * 31) -->
+            <maxHistory>384</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <include resource="logback.${spring.profiles.active:-development}.xml" />
+</configuration>

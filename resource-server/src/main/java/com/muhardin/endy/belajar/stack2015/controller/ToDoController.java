@@ -3,7 +3,6 @@ package com.muhardin.endy.belajar.stack2015.controller;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ToDoController {
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "/halo", method = RequestMethod.GET)
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @RequestMapping(value = "/api/halo", method = RequestMethod.GET)
     public Map<String, Object> halo(@RequestParam(required = false) String nama, Authentication user) {
         Map<String, Object> hasil = new HashMap<>();
         hasil.put("salam", "Halo " + nama);
@@ -24,8 +23,8 @@ public class ToDoController {
         return hasil;
     }
     
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_STAFF')")
-    @RequestMapping(value = "/waktu", method = RequestMethod.GET)
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER_WEB')")
+    @RequestMapping(value = "/api/waktu", method = RequestMethod.GET)
     public Map<String, Object> waktu(Authentication user) {
         Map<String, Object> hasil = new HashMap<>();
         hasil.put("waktu", new Date());
